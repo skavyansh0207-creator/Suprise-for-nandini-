@@ -1,0 +1,6 @@
+{
+  "name": "A Small Surprise For Nandini",
+  "description": "A sweet, playful, and romantic interactive surprise proposal for Nandini.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
