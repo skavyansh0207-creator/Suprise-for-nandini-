@@ -1,21 +1,204 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>A Small Surprise For Nandini ✨</title>
-    <meta name="description" content="A sweet, playful, and romantic interactive surprise proposal for Nandini." />
-    <meta property="og:title" content="A Small Surprise For Nandini ✨" />
-    <meta property="og:description" content="A sweet, playful, and romantic interactive surprise proposal for Nandini." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-[#fed5df] text-slate-800 antialiased selection:bg-rose-200 selection:text-rose-900">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Small Surprise For Nandini ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #ffeef2, #fed5df, #fbbecd);
+      overflow: hidden;
+      position: relative;
+      padding: 20px;
+    }
+    .heart {
+      position: absolute;
+      bottom: -10vh;
+      color: rgba(235, 77, 110, 0.28);
+      animation: floatUp 8.5s infinite linear;
+      user-select: none;
+      z-index: 1;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.8); opacity: 0; }
+      25% { opacity: 0.7; }
+      100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+    }
+    .card {
+      position: relative;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 34px 26px;
+      border-radius: 24px;
+      box-shadow: 0 16px 36px rgba(224, 86, 122, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.8);
+      text-align: center;
+      max-width: 360px;
+      width: 100%;
+      animation: popIn 0.4s ease-out;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .cute-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+      display: inline-block;
+      animation: softBounce 2.2s infinite ease-in-out;
+    }
+    @keyframes softBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    h2 {
+      color: #1f1f1f;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+    p {
+      color: #4b4b4b;
+      font-size: 15px;
+      line-height: 1.65;
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+    .highlight-question {
+      font-size: 15.5px;
+      color: #e91e63;
+      font-weight: 700;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+    }
+    button {
+      padding: 12px 30px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-yes {
+      background: #ff4757;
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(255, 71, 87, 0.35);
+      animation: pulseGlow 2s infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .btn-yes:active {
+      transform: scale(0.96) !important;
+    }
+    .btn-no {
+      background-color: #f1f2f6;
+      color: #747d8c;
+    }
+    .btn-no:active {
+      transform: scale(0.96);
+    }
+    #error-msg {
+      color: #d63031;
+      font-size: 13.5px;
+      margin-top: 16px;
+      font-weight: 600;
+      background: #fff0f3;
+      border: 1px solid rgba(255, 71, 87, 0.2);
+      padding: 9px 14px;
+      border-radius: 12px;
+      animation: wiggle 0.4s ease-in-out;
+    }
+    @keyframes wiggle {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+  </style>
+</head>
+<body>
 
+  <div class="heart" style="left: 12%; font-size: 20px; animation-duration: 7.5s;">🤍</div>
+  <div class="heart" style="left: 28%; font-size: 24px; animation-duration: 9.5s; animation-delay: 1.2s;">✨</div>
+  <div class="heart" style="left: 58%; font-size: 20px; animation-duration: 8s; animation-delay: 2.2s;">💖</div>
+  <div class="heart" style="left: 78%; font-size: 26px; animation-duration: 10s; animation-delay: 0.8s;">🌸</div>
+  <div class="heart" style="left: 88%; font-size: 18px; animation-duration: 6.8s; animation-delay: 3s;">💫</div>
+
+  <!-- Screen 1: Excitement Check -->
+  <div class="card" id="screen-1">
+    <div class="cute-icon">💌</div>
+    <h2>Are you excited to know? ✨</h2>
+    <p style="margin-bottom: 20px; color: #888; font-size: 14px;">A small question just for you...</p>
+    <div class="btn-container">
+      <button class="btn-yes" onclick="goToScreen2()">Yes 🥰</button>
+      <button class="btn-no" onclick="handleNo1()">No</button>
+    </div>
+  </div>
+
+  <!-- Screen 2: Proposal Message -->
+  <div class="card" id="screen-2" style="display: none;">
+    <div class="cute-icon">🌹</div>
+    <h2>For Nandini ❤️</h2>
+    <p>
+      Iss pure mahine mein ek cheez jo sabse achi hui, wo thi aapse milna aur aapko jaan pana. 
+      Aapke bina ab din thoda adhoora sa lagta hai. 
+      <br><br>
+      I really, really like you Nandini. 
+      <br>
+      <span class="highlight-question">Can I call you mine officially now?</span>
+    </p>
+    <div class="btn-container">
+      <button class="btn-yes" onclick="sendWhatsApp()">Yes! 💍</button>
+      <button class="btn-no" onclick="handleNo2()">No</button>
+    </div>
+    <div id="error-msg" style="display: none;">Aise kaise No Nandini ji? You have to click on YES! 😊</div>
+  </div>
+
+  <script>
+    const MY_PHONE_NUMBER = "917876329559"; 
+
+    function goToScreen2() {
+      document.getElementById('screen-1').style.display = 'none';
+      document.getElementById('screen-2').style.display = 'block';
+    }
+
+    function handleNo1() {
+      return false;
+    }
+
+    function handleNo2() {
+      document.getElementById('error-msg').style.display = 'inline-block';
+    }
+
+    function sendWhatsApp() {
+      const message = encodeURIComponent("Yes! ❤️ Let's make it official!");
+      window.location.href = `https://api.whatsapp.com/send?phone=${MY_PHONE_NUMBER}&text=${message}`;
+    }
+  </script>
+</body>
+</html>
